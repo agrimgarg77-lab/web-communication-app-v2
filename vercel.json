@@ -6,12 +6,28 @@
       "dest": "/api/index.js"
     },
     {
+      "src": "/socket.io",
+      "dest": "/api/socket.js"
+    },
+    {
       "src": "/socket.io/(.*)",
-      "dest": "/api/index.js"
+      "dest": "/api/socket.js"
     },
     {
       "src": "/",
       "dest": "/public/index.html"
+    },
+    {
+      "src": "/index.html",
+      "dest": "/public/index.html"
+    },
+    {
+      "src": "/app.js",
+      "dest": "/public/app.js"
+    },
+    {
+      "src": "/uploads/(.*)",
+      "dest": "/public/uploads/$1"
     },
     {
       "src": "/(.*)",
@@ -24,9 +40,35 @@
       "headers": [
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'self' 'unsafe-inline' 'unsafe-eval' blob: data: *; script-src 'self' 'unsafe-inline' 'unsafe-eval' blob: data: *; style-src 'self' 'unsafe-inline' blob: data: *; img-src 'self' blob: data: *; connect-src 'self' ws: wss: blob: data: *; media-src 'self' blob: data: *; font-src 'self' 'unsafe-inline' data: *;"
+          "value": "default-src 'self' 'unsafe-inline' 'unsafe-eval' blob: data:; script-src 'self' 'unsafe-inline' 'unsafe-eval' blob: data: https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://cdn.socket.io; style-src 'self' 'unsafe-inline' blob: data: https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; img-src 'self' blob: data: https://k2mkucxia43oc7fa.public.blob.vercel-storage.com; connect-src 'self' ws: wss: blob: data: https://cdn.socket.io; media-src 'self' blob: data:; font-src 'self' 'unsafe-inline' data: https://k2mkucxia43oc7fa.public.blob.vercel-storage.com https://cdnjs.cloudflare.com; worker-src 'self' blob: data:; frame-src 'self' blob: data:;"
+        }
+      ]
+    },
+    {
+      "source": "/socket.io(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-cache, no-store, must-revalidate"
+        }
+      ]
+    },
+    {
+      "source": "/app.js",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/javascript"
         }
       ]
     }
-  ]
+  ],
+  "functions": {
+    "api/index.js": {
+      "maxDuration": 30
+    },
+    "api/socket.js": {
+      "maxDuration": 30
+    }
+  }
 }
